@@ -12,9 +12,9 @@ public class CreateAccountTests extends TestBase{
     @BeforeMethod
     public void ensurePrecondition() {
         if(!isElementPresent(By.cssSelector("div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.header:nth-child(2) div.header-links-wrapper div.header-links ul:nth-child(1) li:nth-child(1) > a.ico-register"))){
-            driver.findElement(By.xpath("//a[contains(text(),'Log in')]")).click();
+            click(By.xpath("//a[contains(text(),'Log in')]"));
         }
-        driver.findElement(By.cssSelector("div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.header:nth-child(2) div.header-links-wrapper div.header-links ul:nth-child(1) li:nth-child(1) > a.ico-register")).click();
+        click(By.cssSelector("div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.header:nth-child(2) div.header-links-wrapper div.header-links ul:nth-child(1) li:nth-child(1) > a.ico-register"));
         //click on Registration link - div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.header:nth-child(2) div.header-links-wrapper div.header-links ul:nth-child(1) li:nth-child(1) > a.ico-register
 
     }
@@ -22,29 +22,19 @@ public class CreateAccountTests extends TestBase{
     @Test
     public void newUserRegistrationPositiveTest() {
         //choose a gender - [id='gender-female'] - css
-        driver.findElement(By.cssSelector("[id='gender-male']")).click();
+        click(By.cssSelector("[id='gender-male']"));
         //enter FirstName - [id='FirstName'] - css
-        driver.findElement(By.cssSelector("[id='FirstName']")).click();
-        driver.findElement(By.cssSelector("[id='FirstName']")).clear();
-        driver.findElement(By.cssSelector("[id='FirstName']")).sendKeys("Peter");
+        type(By.cssSelector("[id='FirstName']"), "Peter");
         //enter LastName - [id='LastName'] - css
-        driver.findElement(By.cssSelector("[id='LastName']")).click();
-        driver.findElement(By.cssSelector("[id='LastName']")).clear();
-        driver.findElement(By.cssSelector("[id='LastName']")).sendKeys("Johns");
+        type(By.cssSelector("[id='LastName']"), "Johns");
         //enter email - [id='Email'] - css
-        driver.findElement(By.cssSelector("[id='Email']")).click();
-        driver.findElement(By.cssSelector("[id='Email']")).clear();
-        driver.findElement(By.cssSelector("[id='Email']")).sendKeys("fanbanan@gmail.com");
+        type(By.cssSelector("[id='Email']"), "fanbanan@gmail.com");
         //enter password - [id='Password'] - css
-        driver.findElement(By.cssSelector("[id='Password']")).click();
-        driver.findElement(By.cssSelector("[id='Password']")).clear();
-        driver.findElement(By.cssSelector("[id='Password']")).sendKeys("qwerty12345");
+        type(By.cssSelector("[id='Password']"), "qwerty12345");
         //confirm password - [id='ConfirmPassword'] - css
-        driver.findElement(By.cssSelector("[id='ConfirmPassword']")).click();
-        driver.findElement(By.cssSelector("[id='ConfirmPassword']")).clear();
-        driver.findElement(By.cssSelector("[id='ConfirmPassword']")).sendKeys("qwerty12345");
+        type(By.cssSelector("[id='ConfirmPassword']"), "qwerty12345");
         //click on Registration button - [id='register-button'] - css
-        driver.findElement(By.cssSelector("[id='register-button']")).click();
+        click(By.cssSelector("[id='register-button']"));
         //assert registration title displayed - [class='page registration-result-page']
         Assert.assertTrue(isElementPresent(By.cssSelector("[class='page registration-result-page']")));
 
