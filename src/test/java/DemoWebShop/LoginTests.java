@@ -1,6 +1,6 @@
 package DemoWebShop;
 
-import org.openqa.selenium.By;
+import DemoWebShop.models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,29 +9,33 @@ public class LoginTests extends TestBase {
 
     @BeforeMethod
     public void ensurePrecondition() {
-        if (!isElementPresent(By.xpath("//a[contains(text(),'Log out')]"))) {
-            click(By.xpath("//a[contains(text(),'Log in')]"));
+        if (!app.getUser().isLogoutPresent()) {
+            app.getUser().clickOnLoginButton();
         }
     }
 
     @Test
     public void loginPositiveTest() {
-        type(By.cssSelector("[id='Email']"), "fanbanan@gmail.com");
-        type(By.cssSelector("[id='Password']"), "qwerty12345");
-        //click on Login button
-        click(By.xpath("//input[@class='button-1 login-button']"));
+        app.getUser().login();
         //assert Log out button present
-        Assert.assertTrue(isElementPresent2(By.xpath("//a[contains(text(),'Log out')]")));
+        Assert.assertTrue(app.getUser().isLogoutButtonPresent());
+    }
+    @Test
+    public void loginNegativeWithoutEmailTest() {
+        app.getUser().fillLoginForm(new User().setPassword("qwerty12345"));
+        app.getUser().clickOnProveLoginButton();
+        //assert Log out button present
+        Assert.assertTrue(app.getUser().isLogoutButtonPresent());
+    }
+
+    @Test
+    public void loginNegativeWithoutPasswordTest() {
+        app.getUser().fillLoginForm(new User().setEmail("fanbanan@gmail.com"));
+        app.getUser().clickOnProveLoginButton();
+        //assert Log out button present
+        Assert.assertTrue(app.getUser().isErrorPresent());
     }
 
 
 }
 
-   /* @BeforeMethod
-    public void ensurePrecondition() {
-        if(!isLoginLinkPresent()) {
-            clickOnSignOutButton();
-        }
-        //click on Login link - a:nth-child(4) -css
-        clickOnLoginLink();
-} */
