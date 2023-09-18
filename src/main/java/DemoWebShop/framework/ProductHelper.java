@@ -14,7 +14,7 @@ public class ProductHelper extends HelperBase{
 
     public void clickOnAddButton() {
         click(By.xpath("//input[@id='add-to-cart-button-2']"));
-    }
+    } //[class='button-1 add-to-cart-button']
 
     public void fillRequiredField(Product product) {
         type(By.cssSelector("[class='recipient-name']"), product.getName());
@@ -52,6 +52,6 @@ public class ProductHelper extends HelperBase{
     }
 
     public void clickOnShoppingCartLink() {
-        click(By.xpath("span[contains(text(),'Shopping cart')]"));
+        click(By.xpath("//span[contains(text(),'Shopping cart')]"));
     }
 }

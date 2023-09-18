@@ -19,6 +19,8 @@ public class UserHelper extends HelperBase{
         return isElementPresent2(By.xpath("//a[contains(text(),'Log out')]"));
     }
 
+    public void clickOnLogoutButton() {click(By.xpath("//a[contains(text(),'Log out')]")); }
+
     public void clickOnProveLoginButton() {
         click(By.xpath("//input[@class='button-1 login-button']"));
     }
@@ -33,7 +35,23 @@ public class UserHelper extends HelperBase{
     public void fillLoginForm(User user) {
         if (text != null) {
             type(By.cssSelector("[id='Email']"), user.getEmail());
+            pause(1000);
             type(By.cssSelector("[id='Password']"), user.getPassword());
+            pause(1000);
+        }
+    }
+
+    public void fillRegistrationForm(User user) {
+        if (text != null) {
+            type(By.cssSelector("[id='FirstName']"), user.getFirstname());
+            pause(500);
+            type(By.cssSelector("[id='LastName']"), user.getLastname());
+            pause(500);
+            type(By.cssSelector("[id='Email']"), user.getEmail());
+            pause(500);
+            type(By.cssSelector("[id='Password']"), user.getPassword());
+            pause(500);
+            type(By.cssSelector("[id='ConfirmPassword']"), user.getPassword());
         }
     }
 
@@ -56,5 +74,7 @@ public class UserHelper extends HelperBase{
     public boolean isErrorPresent() {
         return isElementPresent(By.cssSelector("[class='validation-summary-errors']"));
     }
+
+
 
 }

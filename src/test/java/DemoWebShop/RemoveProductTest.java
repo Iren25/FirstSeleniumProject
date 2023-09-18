@@ -5,14 +5,15 @@ import org.testng.annotations.Test;
 
 public class RemoveProductTest extends TestBase{
 
-    @BeforeMethod
+     @BeforeMethod
     public void ensurePrecondition() {
-        if (!app.getUser().isLogoutPresent()) {
-            app.getUser().clickOnLoginButton();
+          if (app.getUser().isLogoutPresent()) {
+              app.getUser().clickOnLogoutButton();
         }
+          app.getUser().clickOnLoginButton();
         app.getUser().login();
         app.getProduct().addProduct();
-    }
+     }
 
     @Test
     public void removeProductPositiveTest() {
