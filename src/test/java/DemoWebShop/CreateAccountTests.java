@@ -1,6 +1,7 @@
 package DemoWebShop;
 
 import DemoWebShop.models.User;
+import DemoWebShop.utils.DataProviders;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -59,35 +60,10 @@ public class CreateAccountTests extends TestBase{
         Assert.assertTrue(app.getUser().isErrorPresent(By.cssSelector("[class='validation-summary-errors']")));
     }
 
-    @DataProvider
-    public Iterator<Object[]> newUser() {
-        List<Object[]> list = new ArrayList<>();
-        list.add(new Object[] {"Ronald1", "Smith", "smith007@gmail.com", "qwerty001", "qwerty001"});
-        list.add(new Object[] {"Ronald2", "Smith", "smith008@gmail.com", "qwerty002", "qwerty002"});
-        list.add(new Object[] {"Ronald3", "Smith", "smith009@gmail.com", "qwerty003", "qwerty003"});
-
-        return list.iterator();
-    }
-
-    @DataProvider
-    public Iterator<Object[]> newUserWithCSVFile() throws IOException {
-        List<Object[]> list = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/user.csv")));
-        String line = reader.readLine();
-        while (line != null) {
-            String[] split = line.split(",");
-            list.add(new Object[]{new User().setFirstname(split[0])
-                    .setLastname(split[1])
-                    .setEmail(split[2])
-                    .setPassword(split[3])});
-            line = reader.readLine();
-        }
-
-        return list.iterator();
-    }
 
 
-    @Test(dataProvider = "newUser")
+
+    @Test(dataProvider = "newUser", dataProviderClass = DataProviders.class)
     public void newUserRegistrationPositiveTestFromDataProvider(String firstname, String lastname,
                                                                 String email, String password,
                                                                 String confirmPassword) {
@@ -102,7 +78,7 @@ public class CreateAccountTests extends TestBase{
         app.getUser().clickOnRegisterButton();
         Assert.assertTrue(app.getUser().isElementPresent(By.cssSelector("[class='page registration-result-page']")));
     }
-    @Test(dataProvider = "newUserWithCSVFile")
+    @Test(dataProvider = "newUserWithCSVFile", dataProviderClass = DataProviders.class)
     public void newUserRegistrationPositiveTestFromDataProviderWithCSV(User user) {
 
         app.getUser().clickOnGender();
